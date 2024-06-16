@@ -17,6 +17,10 @@
 
 </div>
 
+### 🔥 Examples of problems in multi-threaded and distributed environments
+- **Race contidion**
+- **Overconsumption of resources**
+
 ## :balance_scale: License
 This project is under the [MIT License](https://github.com/adimiko/Locks/blob/main/LICENSE).
 
