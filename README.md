@@ -2,7 +2,6 @@
     <img src="assets/locks-rounded-social-logo.png" >
 </div>
 
-<h1 align="center">Locks</h1>
 <h3 align="center">Synchronization mechanisms in .NET 🔐</h3>
 
 <p align="center">
