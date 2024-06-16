@@ -1,3 +1,7 @@
+<div align="center">
+    <img src="assets/locks-rounded-social-logo.png" >
+</div>
+
 <h1 align="center">Locks :closed_lock_with_key:</h1>
 <h3 align="center">Synchronization mechanisms in .NET</h3>
 
