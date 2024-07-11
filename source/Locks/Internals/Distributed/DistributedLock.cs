@@ -13,9 +13,14 @@ namespace Locks.Internals.Distributed
 
         private readonly IDistributedLockRepository _repo;
 
-        public DistributedLock(IDistributedLockRepository repo)
+        private readonly IDistributedLockSettings _settings;
+
+        public DistributedLock(
+            IDistributedLockRepository repo,
+            IDistributedLockSettings settings)
         {
             _repo = repo;
+            _settings = settings;
         }
 
         public async Task<IDistributedLockInstance> AcquireAsync(
@@ -44,10 +49,6 @@ namespace Locks.Internals.Distributed
                 .AcquireAsync(key, cancellationToken)
                 .ConfigureAwait(false);
 
-                //TODO Settings
-                TimeSpan lockTimeout = TimeSpan.FromSeconds(10);
-                TimeSpan checkingIntervalWhenLockIsNotReleased = TimeSpan.FromMilliseconds(50);
-
                 bool isAcquired = false;
 
                 DateTime expirationUtc;
@@ -58,13 +59,13 @@ namespace Locks.Internals.Distributed
 
                     var nowUtc = DateTime.UtcNow;
 
-                    expirationUtc = nowUtc + lockTimeout;
+                    expirationUtc = nowUtc + _settings.LockTimeout;
 
                     isAcquired = await _repo.TryAcquire(key, nowUtc, expirationUtc).ConfigureAwait(false);
 
                     if (!isAcquired)
                     {
-                        await Task.Delay(checkingIntervalWhenLockIsNotReleased, cancellationToken).ConfigureAwait(false);
+                        await Task.Delay(_settings.CheckingIntervalWhenLockIsNotReleased, cancellationToken).ConfigureAwait(false);
                     }
                 }
                 while (!isAcquired);

@@ -1,8 +1,9 @@
-﻿using Locks.Configurators;
+﻿using System;
+using Microsoft.Extensions.DependencyInjection;
+using Locks.Configurators;
 using Locks.Internals.Distributed;
 using Locks.Internals.Distributed.Configurators;
-using Microsoft.Extensions.DependencyInjection;
-using System;
+using Locks.Settings;
 
 namespace Locks
 {
@@ -10,12 +11,20 @@ namespace Locks
     {
         public static IServiceCollection AddDistributedLock(
             this IServiceCollection services,
-            Action<IDistributedLockStorageConfigurator> storageConfiguration)
+            Action<IDistributedLockStorageConfigurator> storageConfiguration,
+            Action<DistributedLockSettings> settingsConfiguration = null)
         {
             var storage = new DistributedLockStorageConfigurator(services);
+            var settings = new DistributedLockSettings();
 
             storageConfiguration(storage);
 
+            if (settingsConfiguration != null) 
+            {
+                settingsConfiguration(settings);
+            }
+
+            services.AddSingleton<IDistributedLockSettings>(settings);
             services.AddSingleton<IDistributedLock, DistributedLock>();
 
             return services;
