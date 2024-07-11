@@ -5,6 +5,6 @@ namespace Locks
 {
     public interface IMemoryLock
     {
-        Task<IMemoryLockInstance> Acquire(string key, CancellationToken cancellationToken = default);
+        Task<IMemoryLockInstance> AcquireAsync(string key, CancellationToken cancellationToken = default);
     }
 }

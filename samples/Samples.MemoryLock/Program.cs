@@ -12,7 +12,7 @@ using (var scope = sp.CreateScope())
 {
     var memoryLock = scope.ServiceProvider.GetRequiredService<IMemoryLock>();
 
-    using (memoryLock.Acquire("YOUR_KEY"))
+    using (memoryLock.AcquireAsync("YOUR_KEY"))
     {
         Console.WriteLine("YOUR_LOGIC");
     }
