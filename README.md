@@ -20,11 +20,19 @@
 
 
 ### Usage
-
+#### MemoryLock
 ```C#
-using (memoryLock.Acquire("YOUR_KEY"))
+using (await memoryLock.AcquireAsync("YOUR_KEY"))
 {
-   // Shared resource
+   // Shared resource (multi-threaded environment)
+}
+```
+
+#### DistributedLock
+```C#
+await using (await distributedLock.AcquireAsync("YOUR_KEY"))
+{
+   // Shared resource (distributed environment)
 }
 ```
 
