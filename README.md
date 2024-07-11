@@ -4,6 +4,8 @@
 
 <h3 align="center">Synchronization mechanisms in .NET 🔐</h3>
 
+<h4 align="center"><i>Prevent race contidion</i></h3>
+
 <p align="center">
   <a href="https://www.nuget.org/packages/Locks"><strong>Package</strong></a>
   
@@ -16,11 +18,15 @@
 
 </div>
 
-### 🔥 Examples of problems in multi-threaded and distributed environments
-- **Race contidion**
-- **Overconsumption of resources**
 
-In progress...
+### Usage
+
+```C#
+using (memoryLock.Acquire("YOUR_KEY"))
+{
+   // Shared resource
+}
+```
 
 ## :balance_scale: License
 This project is under the [MIT License](https://github.com/adimiko/Locks/blob/main/LICENSE).
