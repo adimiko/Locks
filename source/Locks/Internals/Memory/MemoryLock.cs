@@ -8,7 +8,7 @@ namespace Locks.Internals.Memory
     {
         private static ConcurrentDictionary<string, SemaphoreSlim> _locks = new ConcurrentDictionary<string, SemaphoreSlim>();
 
-        public async Task<IMemoryLockInstance> Acquire(string key, CancellationToken cancellationToken = default)
+        public async Task<IMemoryLockInstance> AcquireAsync(string key, CancellationToken cancellationToken = default)
         {
             var @lock = _locks.GetOrAdd(key, x => new SemaphoreSlim(1, 1));
 

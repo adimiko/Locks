@@ -18,17 +18,17 @@ namespace Locks.Tests
 
             for (var i = 0; i < 3; i++)
             {
-                var a1 = memoryLock.Acquire(lockKeyA);
-                var b1 = memoryLock.Acquire(lockKeyB);
-                var c1 = memoryLock.Acquire(lockKeyC);
+                var a1 = memoryLock.AcquireAsync(lockKeyA);
+                var b1 = memoryLock.AcquireAsync(lockKeyB);
+                var c1 = memoryLock.AcquireAsync(lockKeyC);
 
-                var a2 = memoryLock.Acquire(lockKeyA);
-                var b2 = memoryLock.Acquire(lockKeyB);
-                var c2 = memoryLock.Acquire(lockKeyC);
+                var a2 = memoryLock.AcquireAsync(lockKeyA);
+                var b2 = memoryLock.AcquireAsync(lockKeyB);
+                var c2 = memoryLock.AcquireAsync(lockKeyC);
 
-                var a3 = memoryLock.Acquire(lockKeyA);
-                var b3 = memoryLock.Acquire(lockKeyB);
-                var c3 = memoryLock.Acquire(lockKeyC);
+                var a3 = memoryLock.AcquireAsync(lockKeyA);
+                var b3 = memoryLock.AcquireAsync(lockKeyB);
+                var c3 = memoryLock.AcquireAsync(lockKeyC);
 
                 await Task.WhenAll(a1, b1, c1);
 
