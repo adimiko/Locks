@@ -18,7 +18,6 @@ namespace Locks.SqlServer.Internals
         {
             const string queryString = "INSERT INTO [dbo].[DistributedLocks] VALUES (@Key, @ExpirationUtc)";
 
-
             using (var connection = _connectionFactory.Create())
             {
                 SqlCommand command = new SqlCommand(queryString, connection);
@@ -36,7 +35,7 @@ namespace Locks.SqlServer.Internals
 
         public async Task<bool> Release(DistributedLockStorageModel @lock, DateTime nowUtc)
         {
-            const string queryString = "UPDATE [dbo].[DistributedLocks] SET ExpirationUtc = @NowUtc WHERE Key = @Key AND ExpirationUtc == @ExpirationUtc";
+            const string queryString = "UPDATE [dbo].[DistributedLocks] SET ExpirationUtc = @NowUtc WHERE [Key] = @Key AND ExpirationUtc = @ExpirationUtc";
 
             int updatedRows = 0;
 
@@ -61,7 +60,7 @@ namespace Locks.SqlServer.Internals
 
         public async Task<bool> TryAcquire(string key, DateTime nowUtc, DateTime newExpirationUtc)
         {
-            const string queryString = "UPDATE [dbo].[DistributedLocks] SET ExpirationUtc = @ExpirationUtc WHERE Key = @Key AND ExpirationUtc <= @NowUtc";
+            const string queryString = "UPDATE [dbo].[DistributedLocks] SET ExpirationUtc = @ExpirationUtc WHERE [Key] = @Key AND ExpirationUtc <= @NowUtc";
 
             int updatedRows = 0;
 

@@ -3,7 +3,7 @@ using Locks.Internals.Distributed.Storage;
 using Locks.SqlServer.Internals;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Locks.SqlServer.Extensions
+namespace Locks
 {
     public static class ExntesionUseSqlServer
     {
