@@ -28,7 +28,7 @@ namespace Locks.Internals.Distributed
             {
                 var isAddedFirstTime = false;
 
-                var isKeyAdded = _isKeyAdded.GetOrAdd(key, x =>
+                _ = _isKeyAdded.GetOrAdd(key, x =>
                 {
                     isAddedFirstTime = true;
 
@@ -37,13 +37,14 @@ namespace Locks.Internals.Distributed
 
                 if (isAddedFirstTime)
                 {
-                    await AddFirstLock(key);
+                    await AddFirstLock(key).ConfigureAwait(false);
                 }
 
                 memoryLockInstance = await new MemoryLock()
                 .AcquireAsync(key, cancellationToken)
                 .ConfigureAwait(false);
 
+                //TODO Settings
                 TimeSpan lockTimeout = TimeSpan.FromSeconds(10);
                 TimeSpan checkingIntervalWhenLockIsNotReleased = TimeSpan.FromMilliseconds(50);
 
