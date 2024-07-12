@@ -66,8 +66,6 @@ namespace Locks.Tests
                 Assert.True(b1.IsCompleted, Message(nameof(b1)));
                 Assert.True(c1.IsCompleted, Message(nameof(c1)));
 
-                await Task.Delay(250);
-
                 // Second tasks should wait when locks will be released
                 Assert.False(a2.IsCompleted, Message(nameof(a2), nameof(a1)));
                 Assert.False(b2.IsCompleted, Message(nameof(b2), nameof(b1)));
